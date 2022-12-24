@@ -1,0 +1,42 @@
+<%= form_with(model: email) do |form| %>
+  <% if email.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(email.errors.count, "error") %> prohibited this email from being saved:</h2>
+
+      <ul>
+        <% email.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div>
+    <%= form.label :sender, style: "display: block" %>
+    <%= form.text_field :sender,value: current_user.email,disabled: true%>
+  </div>
+<%if email.new_record?%>
+  <div>
+    <%= form.label :receiver, style: "display: block" %>
+    <%= form.collection_select :receiver, @receiver.order(:name), :id, :name,  {prompt: '---------'},{ multiple: true }%>
+  </div>
+  <div>
+    <%= form.label :groups, style: "display: block" %>
+    <%= form.collection_select :groups, @groups.order(:name), :id, :name, {prompt: '---------'}, { multiple: true }  %>
+  </div>
+  <%end %>
+  
+  <div class="mt-2">
+    <%= form.submit %>
+  </div>
+<% end %>

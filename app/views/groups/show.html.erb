@@ -1,0 +1,17 @@
+<div class="row d-flex justify-content-center align-items-center"> 
+    <div class=" col-xl-7"> 
+<p id="notice"><%= notice %></p>
+ 
+<p>
+  <b>Name:</b>
+  <%= @group.name %>
+</p>
+<p>
+  <b>users:</b>
+  <%= @group.users.pluck(:email) %>
+</p>
+ 
+<%= link_to 'Edit', edit_group_path(@group) %> |
+<%= link_to 'Back', groups_path %>
+  </div>
+</div>  
