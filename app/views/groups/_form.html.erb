@@ -1,16 +1,4 @@
 <%= form_for(@group) do |f| %>
-  <% if @group.errors.any? %>
-  <div id="errorExplanation">
-    <h2><%= pluralize(@group.errors.count, "error") %> prohibited
-        this post from being saved:</h2>
-    <ul>
-    <% @group.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
-  <% end %>
- 
   <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
@@ -19,7 +7,12 @@
                         :id, :name, { include_blank: false },
                          { multiple: true } %>
   </div>
-  <div class="actions">
+  <div class="actions mt-2 mb-2">
     <%= f.submit %>
   </div>
 <% end %>
+<% if !@group.new_record?%>
+  <%@group.users.each do |a|%>
+  <%= a.email%><%= link_to "remove",groups_delete_member_path(id: @group.id,delete_id: a.id)%><br>
+  <%end%>
+<%end%>

@@ -8,22 +8,14 @@
             <tr>
               <th scope="col"> Sender </th>
               <th scope="col"> Title </th>
-              <th colspan="2"> Action </th>
+              <th scope="col"> Action </th>
             </tr>
 
             <% @emails.each do |email| %>
             <tr>
               <td><%= email.sender%></td>
               <td><%= email.title%></td>
-              <td><%= link_to(image_tag("delete-icon.svg"), email_delete_from_show_path(email.id) )%></td> 
-             
-            <%a= AllEmailFavourite.where(email_id: email.id,user_id: current_user.id)%>
-        
-              <%if a.count == 0%>
-              <td><%= link_to(image_tag("favourite-icon.svg"), email_add_to_favourites_path(email.id) )%></td>
-              <%else%>
-             <td><%= link_to(image_tag("star-fill.svg"),email_remove_to_favourites_path(email.id) )%></td> 
-              <%end%>
+              <td><%= link_to(image_tag("delete-icon.svg"), "#" )%></td>
             </tr>
             <% end %>
           </table>

@@ -1,12 +1,12 @@
-<div class="row d-flex justify-content-center align-items-center"> 
+<div class="row d-flex justify-content-start align-items-center mx-5"> 
   <div class=" col-xl-7"> 
         
 <h1 >Listing groups</h1>
- 
-<table>
+ <hr>
+<table class="table table-striped">
   <tr>
     <th>Name</th>
-    <th></th>
+    <th>Users</th>
     <th></th>
     <th></th>
   </tr>
@@ -14,17 +14,16 @@
 <% @groups.each do |group| %>
   <tr>
     <td><%= group.name %></td>
-    <td><%= link_to 'Show', group %></td>
-    <td><%= link_to 'Edit', edit_group_path(group) %></td>
-    <td><%= button_to 'Destroy', group, method: :delete %></td>
+    <td><%= group.users.pluck(:email).join(",")%></td>
+    <%#= link_to 'Show', group, class:"btn btn-outline-secondary" %>
+    <td><%= link_to 'Edit', edit_group_path(group), class:"btn btn-outline-secondary" %></td>
+    <td><%= button_to 'Destroy', group, method: :delete, class:"btn btn-outline-danger" %></td>
   </tr>
 <% end %>
 </table>
  
 <br />
  
-<%= link_to 'New group', new_group_path %>
-          
-      
+<%= link_to 'New group', new_group_path, class:"btn btn-secondary" %>
   </div>
 </div>
