@@ -3,9 +3,8 @@
     <%= f.label :name %><br />
     <%= f.text_field :name %>
 
-  <%= f.collection_select :users, @users, 
-                        :id, :name, { include_blank: false },
-                         { multiple: true } %>
+  <%= f.select :users, @users.pluck(:name, :id), { include_blank: false },
+                         { multiple: true, data: {controller: 'slim', slim_target: 'field'}} %>
   </div>
   <div class="actions mt-2 mb-2">
     <%= f.submit %>

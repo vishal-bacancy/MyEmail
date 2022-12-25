@@ -93,6 +93,7 @@ class EmailsController < ApplicationController
   end
 
   def delete_from_show
+    Email.find(params[:email_id]).all_email_favourites.where(email_id: params[:email_id],user_id: current_user.id).destroy_all 
     Email.find(params[:email_id]).all_email_receivers.where(email_id: params[:email_id],user_id: current_user.id).destroy_all
     redirect_to emails_path
   end
