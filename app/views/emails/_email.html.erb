@@ -1,0 +1,30 @@
+<div id="<%= dom_id email %>">
+  <p>
+    <strong>Title:</strong>
+    <%= email.title %>
+  </p>
+
+  <p>
+    <strong>Description:</strong>
+    <%= email.description %>
+  </p>
+
+  <p>
+    <strong>Sender:</strong>
+    <%= email.sender %>
+  </p>
+
+  <p>
+    <strong>Receiver:</strong>
+    <% a = email.receiver.split(",")%>
+    <% a.delete("") %>
+    <%= User.where(id: a.map(&:to_i)).pluck(:email).join(",") %>
+  </p>
+  <p>
+    <strong>Groups:</strong>
+    <% a = email.groups.split(",")%>
+    <% a.delete("") %>
+    <%= Group.where(id: a.map(&:to_i)).pluck(:name).join(",") %>
+  </p>
+
+</div>
