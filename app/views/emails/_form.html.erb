@@ -10,31 +10,36 @@
       </ul>
     </div>
   <% end %>
-
-  <div>
+  <div class="row">
+<%if email.new_record?%>
+  <div class="col-md-3">
+    <%= form.label :receiver, style: "display: block" %>
+    <%#= form.collection_select :receiver, @receiver.order(:name), :id, :name,  {prompt: '---------'},{ multiple: true }%>
+      <%= form.select :receiver, @receiver.pluck(:email, :id), { include_blank: false },
+                         { multiple: true, data: {controller: 'slim', slim_target: 'field'}} %>
+  </div>
+  <div class="col-md-3">
+    <%= form.label :groups, style: "display: block" %>
+    <%#= form.collection_select :groups, @groups.order(:name), :id, :name, {prompt: '---------'}, { multiple: true }  %>
+      <%= form.select :groups, @groups.pluck(:name, :id), { include_blank: false },
+                         { multiple: true, data: {controller: 'slim', slim_target: 'field'}} %>
+  </div>
+  <%end %>
+  </div>
+  <div class="mt-2">
     <%= form.label :title, style: "display: block" %>
     <%= form.text_field :title %>
   </div>
 
-  <div>
+  <div class="mt-2">
     <%= form.label :description, style: "display: block" %>
-    <%= form.text_area :description %>
+    <%= form.rich_text_area :description %>
   </div>
 
   <div>
-    <%= form.label :sender, style: "display: block" %>
-    <%= form.text_field :sender,value: current_user.email,disabled: true%>
+    <%#= form.label :sender, style: "display: block" %>
+    <%#= form.text_field :sender,value: current_user.email,disabled: true%>
   </div>
-<%if email.new_record?%>
-  <div>
-    <%= form.label :receiver, style: "display: block" %>
-    <%= form.collection_select :receiver, @receiver.order(:name), :id, :name,  {prompt: '---------'},{ multiple: true }%>
-  </div>
-  <div>
-    <%= form.label :groups, style: "display: block" %>
-    <%= form.collection_select :groups, @groups.order(:name), :id, :name, {prompt: '---------'}, { multiple: true }  %>
-  </div>
-  <%end %>
   
   <div class="mt-2">
     <%= form.submit %>

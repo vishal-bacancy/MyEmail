@@ -14,8 +14,12 @@
           </ul>
           <div class="d-flex">
             <% if user_signed_in?%>
-            <%= link_to "Compose", new_email_path, class: "btn btn-outline-success mx-2"%>
-              <%= link_to "Groups", groups_path, class: "btn btn-outline-primary mx-2"%>
+              <%= form_tag(emails_path, method: 'get') do %>
+              <%= text_field_tag(:search, params[:search]) %>
+              <%= submit_tag("Search", name: nil,class:"btn btn-outline-warning") %>
+            <% end %>
+            <%#= link_to "Compose", new_email_path, class: "btn btn-outline-success mx-2"%>
+              <%#= link_to "Groups", groups_path, class: "btn btn-outline-primary mx-2"%>
               <%= button_to "Sign out", destroy_user_session_path, class: "btn btn-danger mx-2", method: :delete, 'data-turbo': "false"%>
             <% else %>
             <% end %>

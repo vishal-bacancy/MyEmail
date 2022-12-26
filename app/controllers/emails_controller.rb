@@ -5,6 +5,10 @@ class EmailsController < ApplicationController
   def index
     @email_ids= AllEmailReceiver.where(user_id: current_user.id).pluck(:email_id)
     @emails = Email.where(id: @email_ids)
+    if params[:search]
+      #@emails= @emails.where(['title LIKE ?', "%#{params[:search]}%"])
+      @emails= @emails.where('title LIKE :search OR description LIKE :search OR sender LIKE :search', search: "%#{params[:search]}%")
+    end
   end
 
   # GET /emails/1 or /emails/1.json
@@ -73,8 +77,23 @@ class EmailsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def sent 
+    @emails = Email.where(:sender => current_user.email)
+  end
+
+  def add_to_favourites
+    Email.find(params[:email_id]).all_email_favourites.create!(email_id: params[:email_id],user_id: current_user.id)
+    redirect_to emails_path
+  end
+
+  def remove_to_favourites
+    Email.find(params[:email_id]).all_email_favourites.where(email_id: params[:email_id],user_id: current_user.id).destroy_all
+    redirect_to emails_path
+  end
 
   def delete_from_show
+    Email.find(params[:email_id]).all_email_favourites.where(email_id: params[:email_id],user_id: current_user.id).destroy_all 
     Email.find(params[:email_id]).all_email_receivers.where(email_id: params[:email_id],user_id: current_user.id).destroy_all
     redirect_to emails_path
   end
