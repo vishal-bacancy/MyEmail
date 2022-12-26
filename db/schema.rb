@@ -72,9 +72,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_24_133239) do
     t.string "receiver"
     t.boolean "is_archived"
     t.boolean "is_deleted"
+    t.string "groups"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "groups"
   end
 
   create_table "groups", force: :cascade do |t|

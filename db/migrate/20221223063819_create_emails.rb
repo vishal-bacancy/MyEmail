@@ -7,7 +7,7 @@ class CreateEmails < ActiveRecord::Migration[7.0]
       t.string :receiver
       t.boolean :is_archived
       t.boolean :is_deleted
-
+      t.string :groups
       t.timestamps
     end
   end
